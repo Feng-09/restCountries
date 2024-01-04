@@ -13,6 +13,20 @@ function App() {
   const [region, setRegion] = useState(countries)
   const [input, setInput] = useState("")
   const [filtered, setFiltered] = useState([])
+  const [items, setItems] = useState(0)
+  const [filtErr, setFiltErr] = useState('')
+
+  useEffect(() => {
+        fetch('https://restcountries.com/v3.1/all').then(
+            (response) => response.json()
+        ).then((data) => {
+            setCountries(data)
+            setRegion(data)
+            console.log(data)
+        }).catch((err) => {
+            console.log(err.message)
+        })
+    }, [])
 
   const handleMore = () => {
     setlist(a => a + 25)
@@ -26,14 +40,6 @@ function App() {
       setMore(false)
     }
   }
-
-  const handleSearch = (value) => {
-    setInput(value)
-      const filt = countries.filter((item) => {
-      return item.name.toLowerCase().includes(value.toLowerCase())
-      })
-      setFiltered(filt)
-    }
 
   let africa
   let america
@@ -52,20 +58,33 @@ function App() {
 
   const filterAfrica = () => {
     setRegion(africa)
+    setFiltErr('in Africa')
   }
   const filterAmerica = () => {
     setRegion(america)
+    setFiltErr('in America')
   }
   const filterAsia = () => {
     setRegion(asia)
+    setFiltErr('in Asia')
   }
   const filterEurope = () => {
     setRegion(europe)
+    setFiltErr('in Europe')
   }
   const filterOceania = () => {
     setRegion(oceania)
+    setFiltErr('in Oceania')
   }
   
+  const handleSearch = (value) => {
+    setInput(value)
+      const filt = region.filter((item) => {
+      return item.name.common.toLowerCase().includes(value.toLowerCase())
+      })
+      setFiltered(filt)
+      setItems(filt.length)
+    }
 
   const toggleFilter = (e) => {
     setFilter(!filter)
@@ -73,22 +92,8 @@ function App() {
     e.currentTarget.nextElementSibling.classList.toggle("filterOn")
   }
 
-
-    useEffect(() => {
-        fetch('../data.json').then(
-            (response) => response.json()
-        ).then((data) => {
-            setCountries(data)
-            setRegion(data)
-        }).catch((err) => {
-            console.log(err.message)
-        })
-    }, [])
-
-    
-
   return (
-    <main className="bg-[#202c37] h-fit pb-8 w-screen pt-[6.5rem] px-4">
+    <main className="bg-[#202c37] h-fit min-h-screen pb-8 w-screen pt-[6.5rem] px-4">
       <div className="fixed top-0 w-full left-0 bg-[#2b3945] flex justify-between items-center p-4 h-20 z-20">
         <p className="font-nunito font-extrabold tracking-tighter text-base text-white">Where in the world?</p>
         <div className="flex">
@@ -106,19 +111,21 @@ function App() {
         <img src={arrow} className='w-4 h-4 relative top-1 duration-300'/>
       </div>
       <div className='filter'>
-        <p className='font-nunito' onClick={() => {setRegion(countries)}}>All</p>
-        <p className='font-nunito block' onClick={filterAfrica}>Africa</p>
-        <p className='font-nunito block' onClick={filterAmerica}>America</p>
-        <p className='font-nunito block' onClick={filterAsia}>Asia</p>
-        <p className='font-nunito block' onClick={filterEurope}>Europe</p>
-        <p className='font-nunito block' onClick={filterOceania}>Oceania</p>
+        <p className='font-nunito' onClick={() => {setRegion(countries); setFiltErr('')}}>All</p>
+        <p className='font-nunito' onClick={filterAfrica}>Africa</p>
+        <p className='font-nunito' onClick={filterAmerica}>America</p>
+        <p className='font-nunito' onClick={filterAsia}>Asia</p>
+        <p className='font-nunito' onClick={filterEurope}>Europe</p>
+        <p className='font-nunito' onClick={filterOceania}>Oceania</p>
        </div>
       <div className="flex flex-col space-y-12 mt-16">
-        {input != '' ? filtered.map((country, id) => {
+        {input != '' ? items > 0 ?
+        filtered.map((country, id) => {
           return (
-            <Card country={country} key={id} />
+            <Card country={country} key={id} />           
           )
-        }) : countries != null ? region.filter((item, idx) => {
+        }) : <p className='font-nunito text-xl m-auto'>No matching countries {filtErr}</p>
+         : countries != null ? region.filter((item, idx) => {
           return idx < list
         }).map((country, id) => {
           return (
