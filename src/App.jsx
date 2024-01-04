@@ -12,7 +12,7 @@ function App() {
   const [filter, setFilter] = useState(false)
   const [region, setRegion] = useState(countries)
   const [input, setInput] = useState("")
-  let search;
+  const [filtered, setFiltered] = useState([])
 
   const handleMore = () => {
     setlist(a => a + 25)
@@ -27,12 +27,13 @@ function App() {
     }
   }
 
-  const handleSearch = (e) => {
-    setInput(e.target.value)
-    search = countries.filter(country => country.name === input)
-    console.log(search)
-  }
-
+  const handleSearch = (value) => {
+    setInput(value)
+      const filt = countries.filter((item) => {
+      return item.name.toLowerCase().includes(value.toLowerCase())
+      })
+      setFiltered(filt)
+    }
 
   let africa
   let america
@@ -97,7 +98,7 @@ function App() {
       </div>
 
       <div className='mb-6'>
-        <input placeholder="Search for a country..." type='text' onChange={handleSearch} className="pl-16 py-4 w-full rounded-md bg-[#2b3945] font-nunito" />
+        <input placeholder="Search for a country..." type='text' onChange={(e) => handleSearch(e.target.value)} value={input} className="pl-16 py-4 w-full rounded-md bg-[#2b3945] font-nunito" />
         <img src={searchIcon} className="w-4 h-4 relative bottom-9 left-6" />
       </div>
       <div className='bg-[#2b3945] w-[14rem] h-14 rounded-md flex justify-between p-4 mb-2' onClick={toggleFilter}>
@@ -113,7 +114,11 @@ function App() {
         <p className='font-nunito block' onClick={filterOceania}>Oceania</p>
        </div>
       <div className="flex flex-col space-y-12 mt-16">
-        {countries != null ? region.filter((item, idx) => {
+        {input != '' ? filtered.map((country, id) => {
+          return (
+            <Card country={country} key={id} />
+          )
+        }) : countries != null ? region.filter((item, idx) => {
           return idx < list
         }).map((country, id) => {
           return (
