@@ -10,7 +10,7 @@ function Detail({ country, setCountry, countries }) {
                 <p className='font-nunito text-xl text-white'>Back</p>
             </div>
             </Link>
-            <img src={country.flags.png} className='w-full h-[12rem] mb-14 pr-3' />
+            <img src={country.flags.png} className='w-full h-[12rem] mb-14 pr-4' />
             <h1 className='font-nunito text-2xl font-extrabold mb-8'>{country.name.common}</h1>
             <p className='font-nunito mb-4'>Native Name: <span className='opacity-80'>{country.name.nativeName[Object.keys(country.name.nativeName)[0]].common}</span></p>
             <p className='font-nunito mb-4'>Population: <span className='opacity-80'>{new Intl.NumberFormat().format(country.population)}</span></p>
