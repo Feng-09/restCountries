@@ -70,7 +70,6 @@ button:focus-visible {
 }
 
 .filter {
-  background-color: #2b3945;
   width: 14rem;
   border-radius: 0.375rem;
   display: flex;

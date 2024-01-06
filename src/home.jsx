@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import Card from './card'
 import searchIcon from '../assets/magnifying-glass-solid.svg'
+import searchIconL from '../assets/magnifying-glass-solid (1).svg'
 import arrow from '../assets/angle-down-solid.svg'
+import arrowL from '../assets/angle-down-solid (1).svg'
 
-function Home({ countries, region, setRegion, setCountry }) {
-  const [list, setlist] = useState(25)
+function Home({ countries, region, setRegion, setCountry, theme }) {
+  const [list, setlist] = useState(24)
   const [more, setMore] = useState(false)
   const [filter, setFilter] = useState(false)
   const [input, setInput] = useState("")
@@ -13,13 +15,13 @@ function Home({ countries, region, setRegion, setCountry }) {
   const [filtErr, setFiltErr] = useState('')
 
   const handleMore = () => {
-    setlist(a => a + 25)
+    setlist(a => a + 24)
     setMore(true)
   }
 
   const handleLess = () => {
-    setlist(a => a - 25)
-    if (list > 50) {
+    setlist(a => a - 24)
+    if (list > 48) {
     } else {
       setMore(false)
     }
@@ -78,29 +80,31 @@ function Home({ countries, region, setRegion, setCountry }) {
 
   return (
     <>
-    <div className='mb-6'>
-        <input placeholder="Search for a country..." type='text' onChange={(e) => handleSearch(e.target.value)} value={input} className="pl-16 py-4 w-full rounded-md bg-[#2b3945] font-nunito" />
-        <img src={searchIcon} className="w-4 h-4 relative bottom-9 left-6" />
+      <div className='mb-6 group'>
+        <input placeholder="Search for a country..." type='text' onChange={(e) => handleSearch(e.target.value)} value={input} className="pl-16 py-4 w-full rounded-md bg-white dark:bg-[#2b3945] shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] text-[#858585] dark:text-white font-nunito md:w-80 lg:w-[30rem] lg:text-xl" />
+        <img src={theme == 'dark' ? searchIcon : searchIconL} className="w-4 h-4 relative bottom-9 left-6 lg:w-6 lg:h-6 lg:bottom-11 group-hover:scale-[1.2] duration-200" />
       </div>
-      <div className='bg-[#2b3945] w-[14rem] h-14 rounded-md flex justify-between p-4 mb-2' onClick={toggleFilter}>
-        <p className='font-nunito'>Filter by Region</p>
-        <img src={arrow} className='w-4 h-4 relative top-1 duration-300'/>
+      <div className='md:float-right md:relative bottom-[6.1rem]'>
+      <div className='bg-white dark:bg-[#2b3945] w-[14rem] shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] h-14 rounded-md flex justify-between p-4 mb-2 hover:cursor-pointer group' onClick={toggleFilter}>
+        <p className='font-nunito lg:text-xl text-[#111517] dark:text-white group-hover:scale-[1.05] duration-200'>Filter by Region</p>
+        <img src={theme == 'dark' ? arrow : arrowL} className='w-4 h-4 relative top-1 duration-300 lg:w-6 lg:h-6 lg:top-0'/>
       </div>
-      <div className='filter'>
-        <p className='font-nunito' onClick={() => {setRegion(countries); setFiltErr('')}}>All</p>
-        <p className='font-nunito' onClick={filterAfrica}>Africa</p>
-        <p className='font-nunito' onClick={filterAmerica}>America</p>
-        <p className='font-nunito' onClick={filterAsia}>Asia</p>
-        <p className='font-nunito' onClick={filterEurope}>Europe</p>
-        <p className='font-nunito' onClick={filterOceania}>Oceania</p>
+      <div className='filter bg-white dark:bg-[#2b3945] shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129]'>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={() => {setRegion(countries); setFiltErr('')}}>All</p>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={filterAfrica}>Africa</p>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={filterAmerica}>America</p>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={filterAsia}>Asia</p>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={filterEurope}>Europe</p>
+        <p className='font-nunito text-[#111517] dark:text-white' onClick={filterOceania}>Oceania</p>
        </div>
-      <div className="flex flex-col space-y-12 mt-16">
+       </div>
+      <div className="flex flex-col space-y-12 mt-16 md:w-full md:grid md:grid-flow-row md:grid-cols-2 lg:grid-cols-3 min-[1440px]:grid-cols-4">
         {input != '' ? items > 0 ?
         filtered.map((country, id) => {
           return (
             <Card country={country} setCountry={setCountry} key={id} />           
           )
-        }) : <p className='font-nunito text-xl m-auto'>No matching countries {filtErr}</p>
+        }) : <p className='font-nunito text-[#111517] dark:text-white text-xl m-auto'>No matching countries {filtErr}</p>
          : countries != null ? region.filter((item, idx) => {
           return idx < list
         }).map((country, id) => {
@@ -109,11 +113,11 @@ function Home({ countries, region, setRegion, setCountry }) {
           )
         }) : null}
       </div>
-      <div className='m-auto w-36 h-14 rounded-md text-center bg-[#2b3945] py-4 mt-8' onClick={handleMore}>
-        <p className='font-nunito'>View More</p>
+      <div className='m-auto w-36 h-14 rounded-md text-center bg-[#2b3945] py-4 mt-8 hover:cursor-pointer shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] group' onClick={handleMore}>
+        <p className='font-nunito text-[#111517] dark:text-white group-hover:scale-[1.1] duration-200'>View More</p>
       </div>
-      {more ? (<div className='m-auto w-36 h-14 rounded-md text-center bg-[#2b3945] py-4 mt-4' onClick={handleLess}>
-        <p className='font-nunito'>View Less</p>
+      {more ? (<div className='m-auto w-36 h-14 rounded-md text-center bg-[#2b3945] py-4 mt-4 hover:cursor-pointer shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] group' onClick={handleLess}>
+        <p className='font-nunito text-[#111517] dark:text-white group-hover:scale-[1.1] duration-200'>View Less</p>
       </div>) : null}
     </>
   )
