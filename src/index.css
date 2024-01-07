@@ -98,15 +98,50 @@ button:focus-visible {
   transition: 0;
 }
 
+.idk {
+  width: 5rem;
+  height: 5rem;
+  border-top: 5px solid white;
+  border-left: 5px solid white;
+  border-bottom: 5px solid white;
+  border-radius: 40px;
+  mask-image: linear-gradient(to bottom, transparent 50%, white 50%);
+  animation: spin 2s linear infinite;
+  position: absolute;
+  left: 40%;
+  top: 40%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+      transform: rotate(160deg);
+  }
+  20% {
+      border-bottom: 5px solid rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.idk2 {
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid rgba(255, 255, 255, 0.048);
+  border-radius: 9999px;
+  position: absolute;
+  left: 40%;
+  top: 40%;
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  .idk {
+    border-top: 5px solid rgb(8, 6, 36);
+    border-left: 5px solid rgb(8, 6, 36);
+    border-bottom: 5px solid rgb(8, 6, 36);
+    mask-image: linear-gradient(to bottom, transparent 50%, rgb(8, 6, 36) 50%);
   }
 }

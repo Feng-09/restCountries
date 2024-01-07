@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import arrow from '../assets/arrow-left-solid.svg'
 import arrowL from '../assets/arrow-left-solid (1).svg'
 
 function Detail({ country, setCountry, countries, theme }) {
+    const [loaded, setLoaded] = useState(false)
+
     return (
         <div className="px-6 pt-8 pb-24 bg-[#fafafa] dark:bg-[#202c37] min-h-screen h-fit w-full lg:px-12 xl:px-0">
             <Link to='/'>
@@ -11,8 +14,12 @@ function Detail({ country, setCountry, countries, theme }) {
                 <p className='font-nunito text-[#111517] dark:text-white text-xl'>Back</p>
             </div>
             </Link>
-            <div className='xl:flex xl:justify-between'>
-            <img src={country.flags.png} className='w-full h-[12rem] mb-14 pr-4 md:w-[30rem] md:h-[20rem] xl:w-[36rem] xl:h-[24rem] xl:mr-8' />
+            <div className='xl:flex xl:justify-between relative'>
+            <img src={country.flags.png} className='w-full max:md:max-w-[22rem] h-[12rem] mb-14 pr-4 md:w-[30rem] md:h-[20rem] xl:w-[36rem] xl:h-[24rem] xl:mr-8' onLoad={() => {setLoaded(true)}} />
+            <div className={loaded ? 'hidden' : "absolute top-14 left-28 md:top-28 md:left-48 xl:left-60 xl:top-36"}>
+                <div className="idk"></div>
+                <div className="idk2"></div>
+            </div>
             <div>
             <h1 className='font-nunito text-[#111517] dark:text-white text-2xl font-extrabold mb-8 md:text-4xl'>{country.name.common}</h1>
             <div className='md:flex md:space-x-24'>

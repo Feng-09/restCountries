@@ -12,6 +12,7 @@ function App() {
   const [region, setRegion] = useState(countries)
   const [country, setCountry] = useState(null)
   const [theme, setTheme] = useState(localStorage.theme)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all').then(
@@ -21,6 +22,8 @@ function App() {
         setRegion(data)
     }).catch((err) => {
         console.log(err.message)
+    }).finally(() => {
+      setLoaded(true)
     })
   }, [])
 
@@ -50,7 +53,7 @@ function App() {
         </div>        
       </div>
       <Routes>
-        <Route path='/' element={<Home countries={countries} region={region} setRegion={setRegion} setCountry={setCountry} theme={theme} />} />
+        <Route path='/' element={<Home countries={countries} region={region} setRegion={setRegion} setCountry={setCountry} theme={theme} loaded={loaded} />} />
         <Route path='/detail' element={<Detail country={country} countries={countries} setCountry={setCountry} theme={theme} />} />
       </Routes>
 
