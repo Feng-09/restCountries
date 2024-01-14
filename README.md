@@ -1,8 +1,27 @@
-# React + Vite
+# REST Countries API App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## About
 
-Currently, two official plugins are available:
+This app fetches and displays data from the REST Countries API. You can:
+- Filter between regions
+- Search for countries
+- Toggle light and dark modes
+- View border countries from the detail page(click on the country cards)
+- View the country's location on the map
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies used
+
+React and Tailwind
+
+### Screenshot
+
+![Screenshot.png](Screenshot.png)
+
+### Links
+
+- Live Site URL: [https://fengboris-restcountries.netlify.app](https://fengboris-restcountries.netlify.app)
+
+### Built with
+ 
+- Vite
+- Mobile-first workflow

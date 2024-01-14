@@ -4,8 +4,9 @@ import searchIcon from '../assets/magnifying-glass-solid.svg'
 import searchIconL from '../assets/magnifying-glass-solid (1).svg'
 import arrow from '../assets/angle-down-solid.svg'
 import arrowL from '../assets/angle-down-solid (1).svg'
+import { Link } from 'react-router-dom'
 
-function Home({ countries, region, setRegion, setCountry, theme, loaded }) {
+function Home({ countries, region, setRegion, setCountry, theme, loaded, setIndx }) {
   const [list, setlist] = useState(24)
   const [more, setMore] = useState(false)
   const [filter, setFilter] = useState(false)
@@ -106,14 +107,15 @@ function Home({ countries, region, setRegion, setCountry, theme, loaded }) {
         {input != '' ? items > 0 ?
         filtered.map((country, id) => {
           return (
-            <Card country={country} setCountry={setCountry} key={id} />           
+           <Link to={`/details/${country.cca3}`} key={id}  className='w-fit m-auto'> <Card country={country} setCountry={setCountry} key={id} index={id} setIndx={setIndx} />  </Link>         
           )
         }) : <p className='font-nunito text-[#111517] dark:text-white text-xl m-auto'>No matching countries {filtErr}</p>
          : countries != null ? region.filter((item, idx) => {
           return idx < list
         }).map((country, id) => {
           return (
-            <Card country={country} setCountry={setCountry} key={id} />
+            
+         <Link to={`/details/${country.cca3}`} key={id} className='w-fit m-auto'>   <Card country={country} setCountry={setCountry} key={id} index={id} /></Link>
           )
         }) : null}
       </div>

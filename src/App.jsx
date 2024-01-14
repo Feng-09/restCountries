@@ -5,15 +5,17 @@ import moonIcon from '../assets/moon-solid.svg'
 import sunIcon from '../assets/sunIcon2.png'
 import Home from './home'
 import Detail from './detail'
-
+import Map from './map'
 
 function App() {
   const [countries, setCountries] = useState(null)
   const [region, setRegion] = useState(countries)
   const [country, setCountry] = useState(null)
   const [theme, setTheme] = useState(localStorage.theme)
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false) 
 
+  const [indx, setIndx] = useState(Number(localStorage.getItem("index")) || 0)
+  
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all').then(
         (response) => response.json()
@@ -53,9 +55,11 @@ function App() {
         </div>        
       </div>
       <Routes>
-        <Route path='/' element={<Home countries={countries} region={region} setRegion={setRegion} setCountry={setCountry} theme={theme} loaded={loaded} />} />
-        <Route path='/detail' element={<Detail country={country} countries={countries} setCountry={setCountry} theme={theme} />} />
+        <Route path='/' element={<Home countries={countries} region={region} setRegion={setRegion} setCountry={setCountry} theme={theme} loaded={loaded} setIndx={setIndx} />} />
+        <Route path='/details/:code' element={<Detail country={country} countries={countries} setCountries={setCountries} setCountry={setCountry} theme={theme} indx={indx} />} />
+        <Route path='/map/:code' key={1} element={<Map country={country} theme={theme} key={1} />} />        
       </Routes>
+      
 
     </main>
   )

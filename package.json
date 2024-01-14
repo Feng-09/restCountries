@@ -13,9 +13,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@react-google-maps/api": "^2.19.2",
+    "buffer": "^6.0.3",
+    "global": "^4.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "serialize-javascript": "^6.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
