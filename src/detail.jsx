@@ -80,7 +80,7 @@ function Detail({ theme }) {
                 return item.cca3 == border
             })
             return (
-               <Link to='/detail' key={id}>
+               <Link to={`/details/${country.cca3}`} key={id}>
                  <div className='bg-white dark:bg-[#2b3945] shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] w-24 h-8 overflow-auto text-center scroll font-nunito text-[#111517] dark:text-white text-base flex items-start pt-1 justify-center rounded md:text-xl md:h-10 md:w-36 hover:scale-[1.1] duration-200' key={id} onClick={() => {setCountry(borCountry[0])}}>{borCountry[0].name.common}</div>
                </Link>
             )
