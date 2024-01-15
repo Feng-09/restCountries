@@ -31,10 +31,15 @@ function Detail({ theme }) {
           }, [])
   
 
+          if (loaded == false) {
+            return (<div className='block scale-150'>
+            <div className="idk"></div>
+            <div className="idk2"></div>
+          </div>)
+          } else {
     return (
-<>
-
-{
+    <>
+    {
     country && countries && ( <div className="px-6 pt-8 pb-24 bg-[#fafafa] dark:bg-[#202c37] min-h-screen h-fit w-full lg:px-12 xl:px-0">
     <Link to='/'>
     <div className="bg-white dark:bg-[#2b3945] w-28 h-10 items-center rounded-md shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] flex justify-around mb-16 hover:scale-[1.1] duration-200">
@@ -89,10 +94,10 @@ function Detail({ theme }) {
     </div>
     </div>
 
-</div>
-)}
-</>
-    )
+    </div>
+    )}
+    </>
+    )}
 }
 
 export default Detail

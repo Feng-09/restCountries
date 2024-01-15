@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 
 function Map({ theme }) {
   const [ country, setCountry] = useState(null)
+  const [notLoaded, setNotLoaded] = useState(true)
   const {code} = useParams()
 
   useEffect(() => {
@@ -13,7 +14,7 @@ function Map({ theme }) {
         (response) => response.json()
     ).then((data) => {
         setCountry(data[0])
-        // setLoaded(true)       
+        setNotLoaded(false)       
     }).catch((err) => {
         console.log(err.message)
     })
@@ -33,14 +34,18 @@ function Map({ theme }) {
     }
 
     return(
-      <> {country && 
+      <> {notLoaded ? (<div className='block scale-150'>
+            <div className="idk"></div>
+            <div className="idk2"></div>
+          </div>) :
         (<div className='px-6 pt-8 pb-24 bg-[#fafafa] dark:bg-[#202c37] min-h-screen h-fit w-fit lg:px-12 xl:px-0 m-auto'>
-          <Link to='/detail'>
+          <Link to={`/details/${country.cca3}`}>
             <div className="bg-white dark:bg-[#2b3945] w-28 h-10 items-center rounded-md shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] flex justify-around mb-16 hover:scale-[1.1] duration-200">
                 <img src={theme == 'dark' ? arrow : arrowL} className='w-6 h-6' />
                 <p className='font-nunito text-[#111517] dark:text-white text-xl'>Back</p>
             </div>
-            </Link>
+          </Link>
+          
           <LoadScript googleMapsApiKey='AIzaSyDCutXsjYa_D29LULZHoK67x9m4VqkUdto'>
             <GoogleMap mapContainerStyle={container} center={center} zoom={6}>
              <Marker position={center} />
