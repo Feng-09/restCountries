@@ -119,7 +119,7 @@ function Home({ countries, region, setRegion, setCountry, theme, loaded, setIndx
           )
         }) : null}
       </div>
-      {loaded ? null : (
+      {!loaded ? null : (
       <div className='m-auto w-36 h-14 rounded-md text-center bg-white dark:bg-[#2b3945] py-4 mt-8 hover:cursor-pointer shadow-[0_0_10px_2px_#b7bec4] dark:shadow-[0_0_10px_2px_#172129] group' onClick={handleMore}>
         <p className='font-nunito text-[#111517] dark:text-white group-hover:scale-[1.1] duration-200'>View More</p>
       </div>)}
