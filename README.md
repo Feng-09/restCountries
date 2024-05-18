@@ -19,7 +19,7 @@ React and Tailwind
 
 ### Links
 
-- Live Site URL: [https://fengboris-restcountries.netlify.app](https://fengboris-restcountries.netlify.app)
+- Live Site URL: [https://feng-restcountries.netlify.app](https://feng-restcountries.netlify.app)
 
 ### Built with
  
